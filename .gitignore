@@ -1,0 +1,8 @@
+/vendor
+/storage/logs/*.log
+/public/upload
+.idea
+.classpath
+.project
+.setting
+.env
