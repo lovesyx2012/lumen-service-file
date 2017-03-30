@@ -16,11 +16,13 @@ class AppController extends BaseController
       $result = json_decode($result,true);
 
       \Log::debug("debug",[$result]);
-      
+      /*
       $openid = $result['openid'];
       $session_key = $result['session_key'];
 
       $3rd_sesion_key = $openid."_".strval(rand(100,999))."_".$session_key;
       return base64_encode($3rd_sesion_key);
+      */
+      return [];
     }
 }
