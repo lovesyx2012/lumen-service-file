@@ -13,10 +13,12 @@ class AppController extends BaseController
 
       $result = file_get_contents($api_url);
       return $result;
+      /*
       $openid = $result->openid;
       $session_key = $result->session_key;
 
       $3rd_sesion_key = $openid."_".strval(rand(100,999))."_".$session_key;
       return base64_encode($3rd_sesion_key);
+      */
     }
 }
