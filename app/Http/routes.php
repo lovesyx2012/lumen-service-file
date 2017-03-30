@@ -16,16 +16,6 @@ $app->get('/', function () use ($app) {
 });
 
 $api = app('Dingo\Api\Routing\Router');
-/*
-$api->version('v1', function (\Dingo\Api\Routing\Router $api) {
-
-    $api->post('/upload', App\Http\Controllers\V1\FileController::class . '@upload');
-
-    $api->get('/file/{hash}', App\Http\Controllers\V1\StorageController::class . '@download');
-});
-*/
-
-$api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['namespace' => 'App\Http\Controllers\V1'], function (\Dingo\Api\Routing\Router $api) {
 	$api->post('upload', [
@@ -36,5 +26,10 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\V1'], function (\Dingo
     $api->get('file/{hash}', [
         'as' => 'file.download',
         'uses' => 'FileController@download',
+    ]);
+
+    $api->get('user/login', [
+        'as' => 'user.login',
+        'uses' => 'AppController@login',
     ]);
 });
