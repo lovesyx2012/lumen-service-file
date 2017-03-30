@@ -17,8 +17,8 @@ class AppController extends BaseController
 
       \Log::debug("debug",[$result]);
       
-      $openid = $result->openid;
-      $session_key = $result->session_key;
+      $openid = $result['openid'];
+      $session_key = $result['session_key'];
 
       $client_session_key = $openid."_"."syx"."_".$session_key;
       \Log::debug("session",[$client_session_key]);
