@@ -28,7 +28,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\V1'], function (\Dingo
         'uses' => 'FileController@download',
     ]);
 
-    $api->get('user/login', [
+    $api->post('user/login', [
         'as' => 'user.login',
         'uses' => 'AppController@login',
     ]);
