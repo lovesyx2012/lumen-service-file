@@ -20,7 +20,8 @@ class AppController extends BaseController
       $openid = $result->openid;
       $session_key = $result->session_key;
 
-      $3rd_sesion_key = $openid."_"."syx"."_".$session_key;
-      return base64_encode($3rd_sesion_key);
+      $client_session_key = $openid."_"."syx"."_".$session_key;
+      \Log::debug("session",[$client_session_key]);
+      return base64_encode($client_session_key);
     }
 }
