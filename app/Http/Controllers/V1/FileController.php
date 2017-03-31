@@ -13,7 +13,7 @@ class FileController extends BaseController
     public function upload(Request $request){
         try {
            $uploader = new Uploader(env('UPLOAD_PATH'));
-           $uploader->prepare($request->input('file', 'foo'));
+           $uploader->prepare($request->input('key', 'file'));
 
            if (!$uploader->validate()) {
                throw new StoreResourceFailedException(implode(', ', $uploader->getErrors()));
