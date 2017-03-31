@@ -37,14 +37,40 @@ class FileController extends BaseController
                    'original' => $fileInfo['original'],
                    'download' => $this->getDownloadUrl($fileInfo['hash'])
                ];
-
-           return $result;
        } catch (\Exception $e) {
-           return [
+           $result = [
                'status_code' => $e->getCode(),
                'message'     => $e->getMessage()
            ];
        }
+
+       if ($request->input('cross')==1) {
+         return $this->_crossResponse($request,$result);
+       }else{
+         return $result;
+       }
+    }
+
+    private function _crossResponse(Request $request, array $result)
+    {
+        // 避免结果被任意修改
+        $result = json_encode($result);
+
+        // 用于解决跨域问题
+        // 如果提供了cross字段,会跳转到该页面,该页面为调用方网站
+        // 同域名下的地址,返回结果将以json的形式传递给该页面
+        $cross_url = $request->input('cross_url');
+        if (empty($cross_url)) {
+            $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+            if (empty($referer)) {
+                return $result;
+            }
+
+            $endPos = strpos($referer, '/', 7);
+            $cross_url = rtrim(substr($referer, 0, $endPos > 0 ? $endPos : strlen($referer)), '/') . '/ajax?data=';
+        }
+
+        return redirect($cross_url . $result);
     }
 
     /**
